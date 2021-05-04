@@ -1,30 +1,26 @@
 {
-  "name": "data-integrity-tezos",
-  "version": "1.0.0",
-  "description": "Data integrity on Tezos",
-  "devDependencies": {
-    "ganache-cli": "^6.12.1-tezos.0"
+  "dependencies": {
+    "@taquito/signer": "^9.0.0",
+    "@taquito/taquito": "^9.0.0",
+    "dotenv": "^8.2.0",
+    "fs": "*",
+    "yargs": "^17.0.1"
   },
+  "name": "data-integrity-tezos",
+  "description": "Data integrity on Tezos",
+  "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
-    "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork edo",
-    "clean": "rm -rf ./build",
-    "compile": "yarn clean && yarn truffle compile",
-    "migrate": "yarn compile && yarn truffle migrate",
-    "migrate-edonet": "yarn truffle migrate --network edonet",
-    "test": "yarn truffle test",
-    "test-edonet": "yarn truffle test --network edonet"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/giwankim/data-integrity-tezos.git"
   },
-  "author": "Giwan Kim <giwankim@gmail.com>",
+  "author": "Giwan Kim",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/giwankim/data-integrity-tezos/issues"
   },
-  "homepage": "https://github.com/giwankim/data-integrity-tezos#readme",
-  "dependencies": {
-    "truffle": "^5.5.0-tezos.4"
-  }
+  "homepage": "https://github.com/giwankim/data-integrity-tezos#readme"
 }
