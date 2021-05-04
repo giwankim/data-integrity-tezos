@@ -4,6 +4,7 @@
     "@taquito/taquito": "^9.0.0",
     "dotenv": "^8.2.0",
     "fs": "*",
+    "ganache-cli": "^6.12.1-tezos.0",
     "yargs": "^17.0.1"
   },
   "name": "data-integrity-tezos",
@@ -14,6 +15,7 @@
     "clean": "rm -rf build",
     "compile": "npm run clean && mkdir build && ligo compile-contract contracts/DataIntegrity.religo main > ./build/DataIntegrity.michelson",
     "originate": "./src/originate.js",
+    "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork edo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
