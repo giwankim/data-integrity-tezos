@@ -2,6 +2,7 @@
   "dependencies": {
     "@taquito/signer": "^9.0.0",
     "@taquito/taquito": "^9.0.0",
+    "crypto": "^1.0.1",
     "fs": "*",
     "ganache-cli": "^6.12.1-tezos.0",
     "yargs": "^17.0.1"
@@ -12,7 +13,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf build",
-    "compile": "npm run clean && mkdir build && ligo compile-contract contracts/DataIntegrity.religo main > ./build/DataIntegrity.michelson && ligo compile-contract contracts/SimpleDataIntegrity.religo main > ./build/SimpleDataIntegrity.michelson",
+    "compile": "npm run clean && mkdir build && ligo compile-contract contracts/DataIntegrity.religo main > ./build/DataIntegrity.michelson && ligo compile-contract contracts/SimpleDataIntegrity.religo main > ./build/SimpleDataIntegrity.michelson && ligo compile-contract contracts/taco-shop.ligo buy_taco --michelson-format json --output ./build/taco-shop.michelson",
     "originate": "./src/originate.js",
     "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork edo",
     "test": "echo \"Error: no test specified\" && exit 1"
