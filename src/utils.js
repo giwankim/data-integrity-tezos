@@ -38,9 +38,20 @@ function hashFile(filePath, algorithm = 'sha256') {
         .digest('hex');
 }
 
+function generateId(filePath, algorithm = 'sha256') {
+    const basename = path.basename(filePath);
+    const stats = fs.statSync(filePath);
+    const str = `${basename}|${stats.size}|${stats.mtime}`;
+    return crypto
+        .createHash(algorithm)
+        .update(str)
+        .digest('hex');
+}
+
 module.exports = {
     openLog: openLog,
     addLog: addLog,
     listDir: listDir,
     hashFile: hashFile,
+    generateId: generateId,
 };
