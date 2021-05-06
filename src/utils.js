@@ -31,11 +31,17 @@ async function listDir(folderPath) {
     .filter(isFile);
 }
 
-function hashFile(filePath, algorithm = 'sha256') {
-    return crypto
-        .createHash(algorithm)
-        .update('utf8')
-        .digest('hex');
+function checksum(filePath, algorithm = 'sha256', ) {
+    // TODO: return checksum
+    const hasher = crypto.createHash(algorithm);
+    const fileStream = fs.ReadStream(filePath);
+    fileStream.on('data', (data) => {
+        hasher.update(data);
+    });
+    fileStream.on('end', () => {
+        const digest = hasher.digest('hex');
+        console.log(digest);
+    });
 }
 
 function generateId(filePath, algorithm = 'sha256') {
@@ -52,6 +58,6 @@ module.exports = {
     openLog: openLog,
     addLog: addLog,
     listDir: listDir,
-    hashFile: hashFile,
+    checksum: checksum,
     generateId: generateId,
 };
