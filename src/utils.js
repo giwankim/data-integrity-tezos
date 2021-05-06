@@ -31,19 +31,16 @@ async function listDir(folderPath) {
     .filter(isFile);
 }
 
-// const logPath = path.join(__dirname, 'log.log');
-// (async function () {
-//     await openLog(logPath);
-//     await addLog(logPath, logPath, true);
-//     await addLog(logPath, logPath, false);
-// })();
-// (async function() {
-//     files = await listDir('.');
-//     console.log(files);
-// })();
+function hashFile(filePath, algorithm = 'sha256') {
+    return crypto
+        .createHash(algorithm)
+        .update('utf8')
+        .digest('hex');
+}
 
 module.exports = {
     openLog: openLog,
     addLog: addLog,
     listDir: listDir,
+    hashFile: hashFile,
 };
