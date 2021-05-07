@@ -20,10 +20,6 @@ async function addLog(logPath, filePath, integrity) {
     }
 }
 
-const isFile = fileName => {
-    return fs.lstatSync(fileName).isFile();
-}
-
 function listDir(folderPath) {
     return fs.readdirSync(folderPath)
         .map(fileName => {

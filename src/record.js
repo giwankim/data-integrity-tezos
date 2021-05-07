@@ -5,12 +5,17 @@ const utils = require('./utils');
 const kogi = require('./kogi');
 
 async function recordFile(contractAddress, filePath, algorithm = 'sha256') {
-    // Generate package id and content hash
+    // Get package id and content hash
     const pkgId = utils.generateId(filePath, algorithm);
     const hashSum = utils.checksum(filePath, algorithm);
 
+    // Taquito
+    const Tezos = await kogi.signerFactory(
+        process.env.RPC,
+        process.env.KEY
+    );
+
     // Add id -> hash to contract storage map
-    const Tezos = await kogi.signerFactory(process.env.RPC, process.env.KEY);
     Tezos.contract
         .at(contractAddress)
         .then((contract) => {
@@ -18,7 +23,7 @@ async function recordFile(contractAddress, filePath, algorithm = 'sha256') {
             return contract.methods.record(pkgId, hashSum).send();
         })
         .then((op) => {
-            console.log(`Awaiting for ${op.hash} to be confirmed...`);
+            console.log(`Waiting for ${op.hash} to be confirmed...`);
             return op.confirmation(3).then(() => op.hash);
         })
         .then((hash) => {
