@@ -31,17 +31,25 @@ async function listDir(folderPath) {
     .filter(isFile);
 }
 
-function checksum(filePath, algorithm = 'sha256', ) {
-    // TODO: return checksum
-    const hasher = crypto.createHash(algorithm);
-    const fileStream = fs.ReadStream(filePath);
-    fileStream.on('data', (data) => {
-        hasher.update(data);
-    });
-    fileStream.on('end', () => {
-        const digest = hasher.digest('hex');
-        console.log(digest);
-    });
+// function checksum(filePath, algorithm = 'sha256') {
+//     // TODO: return checksum
+//     const hasher = crypto.createHash(algorithm);
+//     const fileStream = fs.ReadStream(filePath);
+//     fileStream.on('data', (data) => {
+//         hasher.update(data);
+//     });
+//     fileStream.on('end', () => {
+//         const digest = hasher.digest('hex');
+//         console.log(digest);
+//     });
+// }
+
+function checksum(filePath, algorithm = 'sha256') {
+    const data = fs.readFileSync(filePath).toString();
+    return crypto
+        .createHash(algorithm)
+        .update(data)
+        .digest('hex');
 }
 
 function generateId(filePath, algorithm = 'sha256') {
