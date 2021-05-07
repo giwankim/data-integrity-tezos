@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { TezosToolkit } = require('@taquito/taquito');
 const { InMemorySigner, importKey } = require('@taquito/signer');
 
@@ -29,6 +30,7 @@ async function faucetSignerFactory(rpcUrl, faucetPath) {
     .catch((error) => {
         console.error(`Error importing importing faucet key: ${error.message}`);
     });
+    return Tezos;
 }
 
 module.exports = {
