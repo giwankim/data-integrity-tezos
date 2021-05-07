@@ -24,11 +24,14 @@ const isFile = fileName => {
     return fs.lstatSync(fileName).isFile();
 }
 
-async function listDir(folderPath) {
-    return fs.readdirSync(folderPath).map(fileName => {
-        return path.join(folderPath, fileName);
-    })
-    .filter(isFile);
+function listDir(folderPath) {
+    return fs.readdirSync(folderPath)
+        .map(fileName => {
+            return path.join(folderPath, fileName);
+        })
+        .filter((fileName) => {
+            return fs.lstatSync(fileName).isFile();
+        });
 }
 
 // function checksum(filePath, algorithm = 'sha256') {
