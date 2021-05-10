@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+require('dotenv').config();
 const yargs = require('yargs');
 const path = require('path');
 const kogi = require('./kogi');
-const utils = require('./utils');
+// const utils = require('./utils');
 const { originate } = require('./originate');
 const { record } = require('./record');
 const { verify } = require('./verify');
@@ -14,7 +15,7 @@ const argv = yargs
             alias: 'p',
             type: 'string',
             demand: true,
-            default: path.join(__dirname, '../build/DataIntegrity.michelson'),
+            default: path.join(__dirname, `../build/${process.env.CONTRACT}`),
         }
     })
     .command('record', 'Record checksum to a smart contract.', {
@@ -84,5 +85,6 @@ const argv = yargs
     } else if (argv._.includes('verify')) {
         const result = await verify(Tezos, argv.contract, argv.path);
         console.log(result);
+        // TODO: log result
     }
 })();

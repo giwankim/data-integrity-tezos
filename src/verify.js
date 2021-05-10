@@ -14,11 +14,9 @@ async function verify(Tezos, contractAddress, filePath, algorithm = 'sha256') {
         const storage = await contract.storage();
 
         if (!storage.has(pkgId)) {
-            // TODO: log failure
             return false;
         } else {
             const storedHash = storage.get(pkgId);
-            console.log(storedHash);
             return hashSum === storedHash;
         }
     } catch (error) {

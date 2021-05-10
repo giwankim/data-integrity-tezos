@@ -17,7 +17,7 @@ async function record(Tezos, contractAddress, filePath, algorithm = 'sha256') {
         const confirmation = process.env.CONFIRMATION;
         console.log(`Awaiting ${confirmation} blocks for ${op.hash} to be confirmed...`);
         await op.confirmation(confirmation);
-
+        
         console.log(`Operation injected: ${process.env.RPC}/${op.hash}`);
     } catch (error) {
         console.error(`Error: ${error.message}`);
