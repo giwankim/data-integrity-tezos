@@ -31,6 +31,7 @@ function listDir(folderPath) {
 }
 
 function checksum(filePath, algorithm = 'sha256') {
+    // TODO: chunking for larger files
     const data = fs.readFileSync(filePath).toString();
     return crypto
         .createHash(algorithm)
