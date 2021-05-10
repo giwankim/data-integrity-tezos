@@ -11,11 +11,10 @@
   "name": "data-integrity-tezos",
   "description": "Data integrity on Tezos",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "clean": "rm -rf build",
     "compile": "npm run clean && mkdir build && ligo compile-contract contracts/EvenSimpler.religo main --output ./build/EvenSimpler.michelson",
-    "originate": "./src/originate.js",
     "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork edo",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
