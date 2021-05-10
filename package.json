@@ -14,7 +14,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rm -rf build",
-    "compile": "npm run clean && mkdir build && ligo compile-contract contracts/DataIntegrity.religo main --output ./build/DataIntegrity.michelson && ligo compile-contract contracts/SimpleDataIntegrity.religo main --output ./build/SimpleDataIntegrity.michelson && ligo compile-contract contracts/taco-shop.ligo buy_taco --michelson-format json --output ./build/taco-shop.michelson",
+    "compile": "npm run clean && mkdir build && ligo compile-contract contracts/EvenSimpler.religo main --output ./build/EvenSimpler.michelson",
     "originate": "./src/originate.js",
     "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork edo",
     "test": "echo \"Error: no test specified\" && exit 1"
