@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-require('dotenv').config()
+require('dotenv').config();
 const path = require('path');
 const utils = require('./utils');
 const kogi = require('./kogi');
@@ -9,34 +9,26 @@ async function recordFile(contractAddress, filePath, algorithm = 'sha256') {
     const pkgId = utils.generateId(filePath, algorithm);
     const hashSum = utils.checksum(filePath, algorithm);
 
-    // Taquito
-    const Tezos = await kogi.signerFactory(
-        process.env.RPC,
-        process.env.KEY
-    );
+    // Add id -> hash to storage
+    console.log(`Recording ${pkgId} -> ${hashSum} to ${contractAddress}`);
+    try {
+        const Tezos = await kogi.signerFactory();
+        const contract = await Tezos.contract.at(contractAddress);
+        const op = await contract.methods.record(pkgId, hashSum).send();
 
-    // Add id -> hash to contract storage map
-    Tezos.contract
-        .at(contractAddress)
-        .then((contract) => {
-            console.log(`Recording ${pkgId} -> ${hashSum} to ${contractAddress}`);
-            return contract.methods.record(pkgId, hashSum).send();
-        })
-        .then((op) => {
-            console.log(`Waiting for ${op.hash} to be confirmed...`);
-            return op.confirmation(3).then(() => op.hash);
-        })
-        .then((hash) => {
-            console.log(`Operation injected: ${process.env.RPC}/${hash}`);
-        })
-        .catch((error) => {
-            console.error(`Error: ${JSON.stringify(error, null, 2)}`);
-            process.exit(1);
-        });
+        const confirmation = process.env.CONFIRMATION;
+        console.log(`Awaiting ${confirmation} blocks for ${op.hash} to be confirmed...`);
+        await op.confirmation(confirmation);
+
+        console.log(`Operation injected: ${process.env.RPC}/${op.hash}`);
+    } catch (error) {
+        console.error(`Error: ${JSON.stringify(error, null, 2)}`);
+    }
 }
 
 (async() => {
-    const contractAddress = 'KT1GmLE7QQ9NGAR1wbaD9nEJYqb562bZYqW6';
+    // const contractAddress = 'KT1GmLE7QQ9NGAR1wbaD9nEJYqb562bZYqW6';
+    const contractAddress = 'KT19sa3bBSXjQ83miwjSQMZjKQ7u9HUT4Xzt';
     const fileName = './utils.js';
     const filePath = path.join(__dirname, fileName);
     await recordFile(contractAddress, filePath);
