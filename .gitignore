@@ -5,4 +5,4 @@ package-lock.json
 .env
 
 trash/
-scripts/
+examples/
