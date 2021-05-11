@@ -14,7 +14,7 @@
   "scripts": {
     "clean": "rm -rf build",
     "compile": "yarn clean && mkdir build && ligo compile-contract contracts/EvenSimpler.religo main --output ./build/EvenSimpler.michelson",
-    "originate": "node ./src/main.js originate",
+    "originate": "yarn compile && node ./src/main.js originate",
     "record": "node ./src/main.js record",
     "verify": "node ./src/main.js verify",
     "help": "node ./src/main.js --help",
