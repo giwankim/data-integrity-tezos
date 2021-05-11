@@ -1,7 +1,17 @@
 .vscode/
+
+# Dependency directories
 node_modules/
+
+# Compiled contracts
 build/
+
+# Logs
+logs/
 package-lock.json
+yarn-error.log*
+
+# Env
 .env
 
 trash/
