@@ -2,7 +2,7 @@ const path = require('path');
 const utils = require('./utils');
 const kogi = require('./kogi');
 
-async function verify(Tezos, contractAddress, filePath, algorithm = 'sha256') {
+async function verify(Tezos, contractAddress, filePath, algorithm) {
     // Get package id and checksum
     const pkgId = utils.generateId(filePath, algorithm);
     const hashSum = utils.checksum(filePath, algorithm);

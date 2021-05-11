@@ -87,9 +87,20 @@ const argv = yargs
     if (argv._.includes('originate')) {
         originate(Tezos, argv.path);
     } else if (argv._.includes('record')) {
-        record(Tezos, argv.contract, argv.path);
+        record(
+            Tezos,
+            argv.contract,
+            argv.path,
+            argv.algorithm
+        );
     } else if (argv._.includes('verify')) {
-        const result = await verify(Tezos, argv.contract, argv.path);
+        const result =
+            await verify(
+                Tezos,
+                argv.contract,
+                argv.path,
+                argv.algorithm
+            );
         console.log(result);
         // TODO: log result
     }
