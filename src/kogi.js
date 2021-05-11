@@ -23,20 +23,21 @@ async function getFaucetKey(faucetPath) {
     }
 }
 
-async function faucetSignerFactory() {
+async function faucetSignerFactory(faucetPath) {
     const Tezos = new TezosToolkit(process.env.RPC);
-    const { email, password, mnemonic, secret } = await getFaucetKey(process.env.FAUCET_KEY);
-    await importKey(
-        Tezos,
-        email,
-        password,
-        mnemonic.join(' '),
-        secret
-    )
-    .catch((error) => {
+    const { email, password, mnemonic, secret } = await getFaucetKey(faucetPath);
+    try {
+        await importKey(
+            Tezos,
+            email,
+            password,
+            mnemonic.join(' '),
+            secret
+        )
+        return Tezos;
+    } catch (error) {
         console.error(`Error importing importing faucet key: ${error.message}`);
-    });
-    return Tezos;
+    }
 }
 
 module.exports = {

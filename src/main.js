@@ -56,12 +56,18 @@ const argv = yargs
         description: 'Path to a faucet key JSON file',
         alias: 'f',
         type: 'string',
-        default: '../faucet.json',
+        default: path.join(__dirname, '../faucet.json'),
     })
     .option('secret_key', {
         description: 'Secret key.',
         alias: 's',
         type: 'string',
+    })
+    .option(`algorithm`, {
+        description: 'Algorithm used to generate hash digests.',
+        alias: 'a',
+        type: 'string',
+        default: 'sha256',
     })
     .help()
     .alias('help', 'h')
@@ -69,12 +75,12 @@ const argv = yargs
 
 (async() => {
     let Tezos;
-    if (argv.faucet_key_file) {
-        Tezos = await kogi.faucetSignerFactory();
-    } else if (argv.secret_key) {
+    if (argv.secret_key) {
         Tezos = await kogi.signerFactory();
+    } else if (argv.faucet_key_file) {
+        Tezos = await kogi.faucetSignerFactory(argv.faucet_key_file);
     } else {
-        console.error(`No faucet account or secret key provided.`);
+        console.error(`Please provide a faucet account or secret key.`);
         process.exit(1);
     }
 
