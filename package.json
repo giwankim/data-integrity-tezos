@@ -19,7 +19,8 @@
     "verify": "node ./src/main.js verify",
     "help": "node ./src/main.js --help",
     "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork edo",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "postinstall": "mkdir -p logs"
   },
   "repository": {
     "type": "git",

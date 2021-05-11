@@ -11,8 +11,5 @@ logs/
 package-lock.json
 yarn-error.log*
 
-# Env
+# dotenv environment variables file
 .env
-
-trash/
-examples/
