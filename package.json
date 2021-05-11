@@ -5,7 +5,6 @@
     "crypto": "^1.0.1",
     "dotenv": "^9.0.0",
     "fs": "*",
-    "ganache-cli": "^6.12.1-tezos.0",
     "yargs": "^17.0.1"
   },
   "name": "data-integrity-tezos",
@@ -27,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/giwankim/data-integrity-tezos/issues"
   },
-  "homepage": "https://github.com/giwankim/data-integrity-tezos#readme"
+  "homepage": "https://github.com/giwankim/data-integrity-tezos#readme",
+  "devDependencies": {
+    "ganache-cli": "^6.12.1-tezos.0"
+  }
 }
