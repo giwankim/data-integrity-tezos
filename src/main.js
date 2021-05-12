@@ -3,7 +3,6 @@ require('dotenv').config();
 const yargs = require('yargs');
 const path = require('path');
 const kogi = require('./kogi');
-// const utils = require('./utils');
 const { originate } = require('./originate');
 const { record } = require('./record');
 const { verify } = require('./verify');

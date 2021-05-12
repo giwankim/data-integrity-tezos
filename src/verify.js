@@ -22,7 +22,7 @@ async function verify(Tezos, contractAddress, filePath, algorithm) {
 
         // log result
         logDir = path.join(__dirname, '../logs');
-        logPath = path.join(logDir, `${contractAddress}.log`);
+        logPath = path.join(logDir, `${contractAddress}.csv`);
         addLog(logPath, filePath, result);
 
         console.log(`Verification result: ${result}`);
