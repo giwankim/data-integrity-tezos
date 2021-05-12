@@ -1,11 +1,10 @@
 const path = require('path');
-const utils = require('./utils');
-const kogi = require('./kogi');
+const { addLog, generateId, checksum } = require('./utils');
 
 async function verify(Tezos, contractAddress, filePath, algorithm) {
     // Get package id and checksum
-    const pkgId = utils.generateId(filePath, algorithm);
-    const hashSum = utils.checksum(filePath, algorithm);
+    const pkgId = generateId(filePath, algorithm);
+    const hashSum = checksum(filePath, algorithm);
 
     // Verify against storage
     console.log(`Verifying ${pkgId} -> ${hashSum} against contract at ${contractAddress}`);
@@ -13,12 +12,21 @@ async function verify(Tezos, contractAddress, filePath, algorithm) {
         const contract = await Tezos.contract.at(contractAddress);
         const storage = await contract.storage();
 
+        let result;
         if (!storage.has(pkgId)) {
-            return false;
+            result = false;
         } else {
             const storedHash = storage.get(pkgId);
-            return hashSum === storedHash;
+            result = (hashSum === storedHash);
         }
+
+        // log result
+        logDir = path.join(__dirname, '../logs');
+        logPath = path.join(logDir, `${contractAddress}.log`);
+        addLog(logPath, filePath, result);
+
+        console.log(`Verification result: ${result}`);
+        return result;
     } catch (error) {
         console.error(`Error: ${error.message}`);
     }

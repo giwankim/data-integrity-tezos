@@ -94,14 +94,11 @@ const argv = yargs
             argv.algorithm
         );
     } else if (argv._.includes('verify')) {
-        const result =
-            await verify(
-                Tezos,
-                argv.contract,
-                argv.path,
-                argv.algorithm
-            );
-        console.log(result);
-        // TODO: log result
+        await verify(
+            Tezos,
+            argv.contract,
+            argv.path,
+            argv.algorithm
+        );
     }
 })();

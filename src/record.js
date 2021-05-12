@@ -1,7 +1,6 @@
 require('dotenv').config();
 const path = require('path');
 const utils = require('./utils');
-const kogi = require('./kogi');
 
 async function record(Tezos, contractAddress, filePath, algorithm) {
     // Get package id and checksum
