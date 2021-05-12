@@ -6,12 +6,12 @@ To install `nvm`:
 ```bash
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 ```
-Running the above command downloads a script and runs it. The script clones the nvm repository to `~/.nvm`, and attempts to add the source lines below to the correct profile file (`~/.bash_profile`, `~/.zshrc`, `~/.profile`, or `~/.bashrc`).
+The command above downloads a script and runs it. It clones nvm repository to `~/.nvm`, then attempts to add the lines below to an appropriate profile file.
 ```bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 ```
-Then, run one of the commands below for different shells:  
+Run one of the commands below to source the above:  
 *bash*: `source ~/.bashrc`  
 *zsh*: `source ~/.zshrc`  
 *ksh*: `source ~/.profile`  
@@ -26,43 +26,43 @@ $ node -v
 v14.16.1
 ```
 ### LIGO
-To install the static Linux binary that runs on most Linux distributions running on x86 architecture:
+Install the static binary that runs on most Linux distributions running on x86 architecture:
 ```bash
 $ wget https://ligolang.org/bin/linux/ligo
 $ chmod +x ./ligo
 $ sudo cp ./ligo /usr/local/bin
 ```
-Note that it is also possible to use a container to compile. To do so, replace `ligo` with the following commmand in the `compile` script in `package.json`:
+Note that it is also possible to use a Docker container to compile. To do so, replace `ligo` with the following commmand in the `compile` script in `package.json`:
 ```bash
-$ docker run --rm -v "$PWD":"$PWD" -w "$PWD" ligolang/ligo:0.15.0
+docker run --rm -v "$PWD":"$PWD" -w "$PWD" ligolang/ligo:0.15.0
 ```
-Please see https://ligolang.org/docs/intro/installation/ to learn more about installing LIGO.
+See https://ligolang.org/docs/intro/installation/ for more information on installing LIGO and https://docs.docker.com/engine/install/ for installing Docker.
 ## Dependencies
-Install `yarn` as the package manager:
+Install `yarn` as the package manager,
  ```bash
  $ npm install -g yarn
  ```
-Install dependencies by running
+and install project dependencies by running
  ```bash
  $ yarn install
  ```
 ## Environments
 ### Test network
-You can either use the `faucet.json` file included in the repository or create an account with https://faucet.tzalpha.net/. Then, use nodes like https://api.tez.ie/rpc/edonet. There is a list of RPC nodes at https://tezostaquito.io/docs/rpc_nodes.
+You can either use the `faucet.json` file included in the repository or create a new test account with https://faucet.tzalpha.net/. There is a list of available RPC nodes at https://tezostaquito.io/docs/rpc_nodes.
 ### Local sandbox
-To run a local sandbox for development and testing:
+To run a local sandbox for local development and testing:
 ```bash
 $ yarn start-sandbox
 ```
-The local sandbox (`ganache-cli@tezos`) needs Docker to run. Please see https://docs.docker.com/engine/install/ for more information on installing Docker.
+Note that the local sandbox (`ganache-cli@tezos`) requires Docker to run.
 ### Environment variables
-There should be an `.env` file at the root of the project that sets the name of the contract, URL for the RPC node, and the number of confirmation blocks. For example,
+Create an `.env` file at the root of the project to set the name of the contract, URL for the RPC node, and the number of confirmation blocks. For example, the `.env` file to test against Edonet as follows:
 ```bash
 CONTRACT=EvenSimpler.michelson
 RPC=https://api.tez.ie/rpc/edonet
 CONFIRMATION=3
 ```
-is the `.env` file that can be used to test against Edonet. To deploy to Mainnet, a secret key for an account should be set by adding the line
+To deploy to Mainnet, a secret key for an account should be set by adding the following line:
 ```bash
 KEY=<your_secret_key_that_starts_with_edsk>
 ```
@@ -118,6 +118,7 @@ Done in 115.98s.
 $ yarn verify -c <contract_address> -p <path_to_file>
 
 Verifying 07ef68236147ce513dec19a3f7dd2bde41cc3d5b11a84fd855da78064162822e -> 52cbef0bfbfdb83732a292297ec179f7c9771166075f7e4e502c2f1a142e10ba against contract at KT1Myej55KpN56bu6EmtRZbPJYEnBEzppK4Q
-true
+Verification result: true
 Done in 5.10s.
 ```
+The verification result is logged to a csv file corresponding to the contract address in the `logs` folder.
