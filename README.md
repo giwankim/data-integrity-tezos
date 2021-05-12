@@ -121,4 +121,4 @@ Verifying 07ef68236147ce513dec19a3f7dd2bde41cc3d5b11a84fd855da78064162822e -> 52
 Verification result: true
 Done in 5.10s.
 ```
-The verification result is logged to a csv file corresponding to the contract address in the `logs` folder.
+The verification result is logged to a csv file corresponding to the contract address: in the above example, the result is logged to `logs/KT1Myej55KpN56bu6EmtRZbPJYEnBEzppK4Q.csv`.
