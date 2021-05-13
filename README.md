@@ -69,7 +69,8 @@ KEY=<your_secret_key_that_starts_with_edsk>
 ## Usage
 ```bash
 $ yarn run help
-
+```
+```bash
 yarn run v1.22.10
 $ node ./src/main.js --help
 main.js [command]
@@ -94,7 +95,8 @@ Done in 0.35s.
 ### Originate
 ```bash
 $ yarn originate [-p path_to_file]
-
+```
+```bash
 yarn run v1.22.10
 $ node ./src/main.js originate
 Originating contract at /home/ec2-user2/workspace/data-integrity-tezos/build/EvenSimpler.michelson...
@@ -105,7 +107,8 @@ Done in 13.16s.
 ### Record
 ```bash
 $ yarn record -c <contract_address> -p <path_to_file>
-
+```
+```bash
 yarn run v1.22.10
 $ node ./src/main.js record -c KT1Myej55KpN56bu6EmtRZbPJYEnBEzppK4Q -p ./package.json
 Recording 07ef68236147ce513dec19a3f7dd2bde41cc3d5b11a84fd855da78064162822e -> 52cbef0bfbfdb83732a292297ec179f7c9771166075f7e4e502c2f1a142e10ba to KT1Myej55KpN56bu6EmtRZbPJYEnBEzppK4Q
@@ -116,7 +119,8 @@ Done in 115.98s.
 ### Verify
 ```bash
 $ yarn verify -c <contract_address> -p <path_to_file>
-
+```
+```bash
 Verifying 07ef68236147ce513dec19a3f7dd2bde41cc3d5b11a84fd855da78064162822e -> 52cbef0bfbfdb83732a292297ec179f7c9771166075f7e4e502c2f1a142e10ba against contract at KT1Myej55KpN56bu6EmtRZbPJYEnBEzppK4Q
 Verification result: true
 Done in 5.10s.
