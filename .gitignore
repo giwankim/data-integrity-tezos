@@ -1,4 +1,15 @@
-node_modules
-build
-package-lock.json
 .vscode/
+
+# Dependency directories
+node_modules/
+
+# Compiled contracts
+build/
+
+# Logs
+logs/
+package-lock.json
+yarn-error.log*
+
+# dotenv environment variables file
+.env
