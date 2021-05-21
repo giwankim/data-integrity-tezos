@@ -19,19 +19,21 @@ async function verifyFile(Tezos, contractAddress, filePath, algorithm) {
 
     // Verify against storage
     let result;
-    if (!storage.has(pkgId)) {
+    const storedHash = await storage.get(pkgId);
+    if (!storedHash) {
       result = false;
     } else {
-      const storedHash = await storage.get(pkgId);
       result = hashSum === storedHash;
     }
 
-    // log result
+    // Log result
     logDir = path.join(__dirname, "../logs");
     logPath = path.join(logDir, `${contractAddress}.csv`);
     addLog(logPath, filePath, result);
+    console.log(
+      `Verification result for ${path.basename(filePath)}: ${result}`
+    );
 
-    console.log(`Verification result: ${result}`);
     return result;
   } catch (error) {
     console.error(`Error: ${error.message}`);
