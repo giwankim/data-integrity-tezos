@@ -13,12 +13,12 @@
   "main": "main.js",
   "scripts": {
     "clean": "rm -rf build",
-    "compile": "yarn clean && mkdir build && ligo compile-contract contracts/EvenSimpler.religo main --output ./build/EvenSimpler.michelson",
+    "compile": "yarn clean && mkdir build && ligo compile-contract contracts/Simpler.religo main --output ./build/Simpler.michelson",
     "originate": "yarn compile && node ./src/main.js originate",
     "record": "node ./src/main.js record",
     "verify": "node ./src/main.js verify",
     "help": "node ./src/main.js --help",
-    "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork edo",
+    "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork florence",
     "test": "echo \"Error: no test specified\" && exit 1",
     "postinstall": "mkdir -p logs"
   },
