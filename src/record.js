@@ -1,7 +1,6 @@
-require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
-const utils = require("./utils");
+const { generateId, checksum } = require("./utils");
 
 async function recordFile(
   Tezos,
@@ -11,14 +10,14 @@ async function recordFile(
   confirmations
 ) {
   // Package id and checksum
-  const pkgId = utils.generateId(filePath, algorithm);
-  const hashSum = utils.checksum(filePath, algorithm);
+  const pkgId = generateId(filePath, algorithm);
+  const hashSum = checksum(filePath, algorithm);
 
   // Add (id, hash) to storage
   console.log(
     `Recording ${path.basename(
       filePath
-    )} (${pkgId} -> ${hashSum}) to ${contractAddress}`
+    )} (${pkgId}, ${hashSum}) to ${contractAddress}`
   );
   try {
     const contract = await Tezos.contract.at(contractAddress);

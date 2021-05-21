@@ -34,6 +34,6 @@ async function getFaucetKey(faucetPath) {
 }
 
 module.exports = {
-  signerFactory: signerFactory,
-  faucetSignerFactory: faucetSignerFactory,
+  signerFactory,
+  faucetSignerFactory,
 };

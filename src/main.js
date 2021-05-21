@@ -2,19 +2,19 @@
 require("dotenv").config();
 const yargs = require("yargs");
 const path = require("path");
-const kogi = require("./kogi");
+const { signerFactory, faucetSignerFactory } = require("./kogi");
 const { originate } = require("./originate");
 const { recordFile, recordDirectory } = require("./record");
-const { verify } = require("./verify");
+const { verifyFile, verifyDirectory } = require("./verify");
 
 const argv = yargs
   .command("originate", "Originate smart contract.", {
     path: {
       description: "Path to compiled Michelson smart contract.",
-      alias: "p",
+      alias: "c",
       type: "string",
       demand: true,
-      default: path.join(__dirname, "../build/Simple.michelson"),
+      default: path.join(__dirname, "../build/Simpler.michelson"),
     },
   })
   .command("record", "Record checksum to a smart contract.", {
@@ -46,7 +46,11 @@ const argv = yargs
       description: "Path to the file to verify.",
       alias: "p",
       type: "string",
-      demand: true,
+    },
+    directory: {
+      description: "Path to directory to verify.",
+      alias: "d",
+      type: "string",
     },
   })
   .option("url", {
@@ -85,9 +89,9 @@ const argv = yargs
   // Taquito toolkit for interacting with Tezos
   let Tezos;
   if (argv.secret_key) {
-    Tezos = await kogi.signerFactory(argv.url, argv.secret_key);
+    Tezos = await signerFactory(argv.url, argv.secret_key);
   } else if (argv.faucet_key_file) {
-    Tezos = await kogi.faucetSignerFactory(argv.url, argv.faucet_key_file);
+    Tezos = await faucetSignerFactory(argv.url, argv.faucet_key_file);
   } else {
     console.error(`Please provide a faucet account or secret key.`);
     process.exit(1);
@@ -114,12 +118,20 @@ const argv = yargs
         argv.confirmations
       );
     } else {
-      console.error(`Please specify either a directory or file path.`);
+      console.error(`Please specify either a directory or file to record.`);
       process.exit(1);
     }
   } else if (argv._.includes("verify")) {
-    verify(Tezos, argv.contract, argv.path, argv.algorithm);
+    if (argv.directory) {
+      verifyDirectory(Tezos, argv.contract, argv.directory, argv.algorithm);
+    } else if (argv.path) {
+      verifyFile(Tezos, argv.contract, argv.path, argv.algorith);
+    } else {
+      console.error(`Please specify either a directory or file to verify.`);
+      process.exit(1);
+    }
   } else {
     process.exit(1);
   }
 })();
+
