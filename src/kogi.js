@@ -1,12 +1,18 @@
 const fs = require("fs");
-const { TezosToolkit } = require("@taquito/taquito");
+const { TezosToolkit, MichelCodecPacker, MichelCodecParser } = require("@taquito/taquito");
 const { InMemorySigner, importKey } = require("@taquito/signer");
 
 async function signerFactory(rpcUrl, secretKey) {
   try {
     const Tezos = new TezosToolkit(rpcUrl);
+
+    // Local in-memory signer
     const signer = await InMemorySigner.fromSecretKey(secretKey);
     await Tezos.setProvider({ signer: signer });
+
+    // Local packing for big maps
+    await Tezos.setPackerProvider(new MichelCodecParser());
+
     return Tezos;
   } catch (error) {
     console.error(`Error importing secret key: ${error.message}`);
@@ -15,6 +21,11 @@ async function signerFactory(rpcUrl, secretKey) {
 
 async function faucetSignerFactory(rpcUrl, faucetPath) {
   const Tezos = new TezosToolkit(rpcUrl);
+
+  // Local packing for big maps
+  await Tezos.setPackerProvider(new MichelCodecParser());
+
+  // Load a testnet faucet key
   const { email, password, mnemonic, secret } = await getFaucetKey(faucetPath);
   try {
     await importKey(Tezos, email, password, mnemonic.join(" "), secret);

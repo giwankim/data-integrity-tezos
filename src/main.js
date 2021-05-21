@@ -14,7 +14,12 @@ const argv = yargs
       alias: "c",
       type: "string",
       demand: true,
-      default: path.join(__dirname, "../build/Simpler.michelson"),
+      default: path.join(__dirname, "../build/Simple.michelson"),
+    },
+    address: {
+      description: "Tezos address of owner of the contract.",
+      alias: "a",
+      type: "string",
     },
   })
   .command("record", "Record checksum to a smart contract.", {
@@ -134,4 +139,3 @@ const argv = yargs
     process.exit(1);
   }
 })();
-

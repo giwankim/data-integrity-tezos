@@ -13,7 +13,7 @@
   "main": "main.js",
   "scripts": {
     "clean": "rm -rf build",
-    "compile": "yarn clean && mkdir build && ligo compile-contract contracts/Simpler.religo main --output ./build/Simpler.michelson",
+    "compile": "yarn clean && mkdir build && ligo compile-contract contracts/Simple.religo main --output ./build/Simple.michelson",
     "originate": "yarn compile && node ./src/main.js originate",
     "record": "node ./src/main.js record",
     "verify": "node ./src/main.js verify",
