@@ -7,6 +7,9 @@
     "fs": "*",
     "yargs": "^17.0.1"
   },
+  "devDependencies": {
+    "ganache-cli": "^6.12.1-tezos.0"
+  },
   "name": "data-integrity-tezos",
   "description": "Data integrity on Tezos",
   "version": "1.0.0",
@@ -31,8 +34,5 @@
   "bugs": {
     "url": "https://github.com/giwankim/data-integrity-tezos/issues"
   },
-  "homepage": "https://github.com/giwankim/data-integrity-tezos#readme",
-  "devDependencies": {
-    "ganache-cli": "^6.12.1-tezos.0"
-  }
+  "homepage": "https://github.com/giwankim/data-integrity-tezos#readme"
 }

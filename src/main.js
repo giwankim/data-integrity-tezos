@@ -75,6 +75,12 @@ const argv = yargs
     alias: "s",
     type: "string",
   })
+  .option("network", {
+    description: "",
+    alias: "n",
+    type: "string",
+    default: "development",
+  })
   .option(`algorithm`, {
     description: "Algorithm used to generate hash digests.",
     alias: "a",

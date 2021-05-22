@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { TezosToolkit, MichelCodecPacker, MichelCodecParser } = require("@taquito/taquito");
 const { InMemorySigner, importKey } = require("@taquito/signer");
+const configs = require("../config");
 
 async function signerFactory(rpcUrl, secretKey) {
   try {
