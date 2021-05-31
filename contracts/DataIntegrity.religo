@@ -13,7 +13,7 @@ type storage = {
 type return = (list (operation), storage);
 
 // Entrypoints
-let record = ((id_hash, storage) : (id_hash, storage)) : return => {
+let record = ((id_hash, storage) :   (id_hash, storage)) : return => {
   if (storage.owner != Tezos.sender) { failwith("Only the owner of the contract can add a new record."); };
   let hashes : big_map (string, string) = Big_map.update(id_hash.id, Some (id_hash.hash), storage.hashes);
   let storage : storage = {...storage, hashes: hashes};

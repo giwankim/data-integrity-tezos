@@ -37,5 +37,5 @@ module.exports = {
   openLog,
   addLog,
   checksum,
-  generateId,
+  generateId
 };

@@ -1,11 +1,17 @@
 #!/usr/bin/env node
-require("dotenv").config();
 const yargs = require("yargs");
 const path = require("path");
+
 const { signerFactory, faucetSignerFactory } = require("./kogi");
 const { originate } = require("./originate");
 const { recordFile, recordDirectory } = require("./record");
 const { verifyFile, verifyDirectory } = require("./verify");
+const {
+  estimateOrigination,
+  estimateRecordFile,
+  
+} = require("./estimate");
+const { ADDRCONFIG } = require("dns");
 
 const argv = yargs
   .command("originate", "Originate smart contract.", {
@@ -58,6 +64,41 @@ const argv = yargs
       type: "string",
     },
   })
+  .command(
+    "estimate-origination",
+    "Estimate the cost of originating a smart contract.",
+    {
+      path: {
+        description: "Path to compiled Michelson smart contract.",
+        alias: "c",
+        type: "string",
+        demand: true,
+        default: path.join(__dirname, "../build/Simple.michelson"),
+      },
+    }
+  )
+  .command(
+    "estimate-record",
+    "Estimate the cost of record checksum to a smart contract.",
+    {
+      contract: {
+        description: "Address to smart contract.",
+        alias: "c",
+        type: "string",
+        demand: true,
+      },
+      path: {
+        description: "Path to the file to be recorded.",
+        alias: "p",
+        type: "string",
+      },
+      directory: {
+        description: "Path to directory to be recorded.",
+        alias: "d",
+        type: "string",
+      },
+    }
+  )
   .option("url", {
     description: "Tezos RPC node",
     alias: "u",
@@ -109,7 +150,17 @@ const argv = yargs
   }
 
   // Route to appropriate function
-  if (argv._.includes("originate")) {
+  if (argv._.includes("estimate")) {
+    if (argv._.includes("origination")) {
+      estimateOrigination(Tezos, argv.path);
+    } else if (argv._.includes("record")) {
+      if (argv.directory) {
+        estimateRecordDirectory(Tezos, argv.contract, argv.directory, argv.algorithm);
+      } else if (argv.path) {
+        estimateRecordFile(Tezos, argv.contract, argv.path, argv.algorithm);
+      }
+    }
+  } else if (argv._.includes("originate")) {
     originate(Tezos, argv.path);
   } else if (argv._.includes("record")) {
     if (argv.directory) {
@@ -121,7 +172,7 @@ const argv = yargs
         argv.confirmations
       );
     } else if (argv.path) {
-      await recordFile(
+      recordFile(
         Tezos,
         argv.contract,
         argv.path,
