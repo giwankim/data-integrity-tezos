@@ -19,6 +19,7 @@
     "compile": "yarn clean && mkdir build && ligo compile-contract contracts/Simple.religo main --output ./build/Simple.michelson",
     "originate": "yarn compile && node ./src/main.js originate",
     "estimate-origination": "yarn compile && node ./src/main.js estimate-origination",
+    "estimate-record": "yarn compile && node ./src/main.js estimate-record",
     "record": "node ./src/main.js record",
     "verify": "node ./src/main.js verify",
     "help": "node ./src/main.js --help",

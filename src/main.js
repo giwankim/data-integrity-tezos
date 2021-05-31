@@ -6,12 +6,7 @@ const { signerFactory, faucetSignerFactory } = require("./kogi");
 const { originate } = require("./originate");
 const { recordFile, recordDirectory } = require("./record");
 const { verifyFile, verifyDirectory } = require("./verify");
-const {
-  estimateOrigination,
-  estimateRecordFile,
-  
-} = require("./estimate");
-const { ADDRCONFIG } = require("dns");
+const { estimateOrigination, estimateRecordFile } = require("./estimate");
 
 const argv = yargs
   .command("originate", "Originate smart contract.", {
@@ -149,19 +144,26 @@ const argv = yargs
     process.exit(1);
   }
 
-  // Route to appropriate function
-  if (argv._.includes("estimate")) {
-    if (argv._.includes("origination")) {
+  // Route to appropriate functions
+  // estimate origination cost
+  if (argv._.includes("estimate-origination")) {
       estimateOrigination(Tezos, argv.path);
-    } else if (argv._.includes("record")) {
+  // estimate record cost
+  } else if (argv._.includes("estimate-record")) {
       if (argv.directory) {
-        estimateRecordDirectory(Tezos, argv.contract, argv.directory, argv.algorithm);
+        estimateRecordDirectory(
+          Tezos,
+          argv.contract,
+          argv.directory,
+          argv.algorithm
+        );
       } else if (argv.path) {
         estimateRecordFile(Tezos, argv.contract, argv.path, argv.algorithm);
       }
-    }
+  // originate
   } else if (argv._.includes("originate")) {
     originate(Tezos, argv.path);
+  // record
   } else if (argv._.includes("record")) {
     if (argv.directory) {
       recordDirectory(
@@ -183,6 +185,7 @@ const argv = yargs
       console.error(`Please specify either a directory or file to record.`);
       process.exit(1);
     }
+  // verify
   } else if (argv._.includes("verify")) {
     if (argv.directory) {
       verifyDirectory(Tezos, argv.contract, argv.directory, argv.algorithm);

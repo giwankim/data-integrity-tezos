@@ -3,6 +3,8 @@ const path = require("path");
 
 const { MichelsonMap } = require("@taquito/taquito");
 
+const { generateId, checksum } = require("./utils");
+
 async function estimateOrigination(Tezos, contractPath) {
   console.log(
     `Estimating contract origination of ${path.basename(contractPath)}...`
@@ -35,7 +37,7 @@ async function estimateOrigination(Tezos, contractPath) {
 
     // fees according to your specified base fee will ensure that at least
     // minimum fees are used
-    const usingBaseFeeMutez = estimate_record.usingBaseFeeMutez;
+    const usingBaseFeeMutez = estimationOp.usingBaseFeeMutez;
 
     console.log(`burnFeeMutez: ${burnFeeMutez}`);
     console.log(`gasLimit: ${gasLimit}`);
@@ -58,8 +60,8 @@ async function estimateRecordFile(Tezos, contractAddress, filePath, algorithm) {
     const contract = await Tezos.contract.at(contractAddress);
     const op = await contract.methods
       .record(hashSum, pkgId)
-      .toTrnasferParams({});
-    const estimationOp = await Tezos.estimate(op);
+      .toTransferParams({});
+    const estimationOp = await Tezos.estimate.transfer(op);
 
     const burnFeeMutez = estimationOp.burnFeeMutez;
     const gasLimit = estimationOp.gasLimit;
@@ -67,7 +69,7 @@ async function estimateRecordFile(Tezos, contractAddress, filePath, algorithm) {
     const storageLimit = estimationOp.storageLimit;
     const suggestedFeeMutez = estimationOp.suggestedFeeMutez;
     const totalCost = estimationOp.totalCost;
-    const usingBaseFeeMutez = estimate_record.usingBaseFeeMutez;
+    const usingBaseFeeMutez = estimationOp.usingBaseFeeMutez;
 
     console.log(`burnFeeMutez: ${burnFeeMutez}`);
     console.log(`gasLimit: ${gasLimit}`);
