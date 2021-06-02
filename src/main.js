@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 const yargs = require("yargs");
 const path = require("path");
-
 const { signerFactory, faucetSignerFactory } = require("./kogi");
 const { originate } = require("./originate");
 const { recordFile, recordDirectory } = require("./record");
@@ -15,7 +14,7 @@ const argv = yargs
       alias: "c",
       type: "string",
       demand: true,
-      default: path.join(__dirname, "../build/Simple.michelson"),
+      default: path.join(__dirname, '..', "build/Simple.michelson"),
     },
     address: {
       description: "Tezos address of owner of the contract.",
@@ -68,7 +67,7 @@ const argv = yargs
         alias: "c",
         type: "string",
         demand: true,
-        default: path.join(__dirname, "../build/Simple.michelson"),
+        default: path.join(__dirname, '..',"build/Simple.michelson"),
       },
     }
   )
@@ -104,7 +103,7 @@ const argv = yargs
     description: "Path to a faucet key JSON file",
     alias: "f",
     type: "string",
-    default: path.join(__dirname, "../faucet.json"),
+    default: path.join(__dirname, '..', "faucet.json"),
   })
   .option("secret_key", {
     description: "Secret key.",

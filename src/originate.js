@@ -22,7 +22,7 @@ async function originate(Tezos, contractPath) {
         console.log(`Origination completed.`);
 
         // Open log
-        logDir = path.join(__dirname, '../logs');
+        logDir = path.join(__dirname, '..', 'logs');
         logPath = path.join(logDir, `${contractAddress}.csv`);
         openLog(logPath);
     } catch (error) {

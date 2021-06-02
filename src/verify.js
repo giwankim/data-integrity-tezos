@@ -27,7 +27,7 @@ async function verifyFile(Tezos, contractAddress, filePath, algorithm) {
     }
 
     // Log result
-    logDir = path.join(__dirname, "../logs");
+    logDir = path.join(__dirname, '..', "logs");
     logPath = path.join(logDir, `${contractAddress}.csv`);
     addLog(logPath, filePath, result);
     console.log(
