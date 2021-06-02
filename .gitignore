@@ -9,6 +9,7 @@ node_modules/
 build/
 
 # Logs
+experiments/
 logs/
 package-lock.json
 yarn-error.log*
