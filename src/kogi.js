@@ -1,7 +1,6 @@
 const fs = require("fs");
-const { TezosToolkit, MichelCodecPacker, MichelCodecParser } = require("@taquito/taquito");
+const { TezosToolkit, MichelCodecPacker } = require("@taquito/taquito");
 const { InMemorySigner, importKey } = require("@taquito/signer");
-const configs = require("../config");
 
 async function signerFactory(rpcUrl, secretKey) {
   try {
@@ -12,7 +11,7 @@ async function signerFactory(rpcUrl, secretKey) {
     await Tezos.setProvider({ signer: signer });
 
     // Local packing for big maps
-    await Tezos.setPackerProvider(new MichelCodecParser());
+    await Tezos.setPackerProvider(new MichelCodecPacker());
 
     return Tezos;
   } catch (error) {
@@ -24,7 +23,7 @@ async function faucetSignerFactory(rpcUrl, faucetPath) {
   const Tezos = new TezosToolkit(rpcUrl);
 
   // Local packing for big maps
-  await Tezos.setPackerProvider(new MichelCodecParser());
+  await Tezos.setPackerProvider(new MichelCodecPacker());
 
   // Load a testnet faucet key
   const { email, password, mnemonic, secret } = await getFaucetKey(faucetPath);

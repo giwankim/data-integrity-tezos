@@ -11,7 +11,6 @@ async function estimateOrigination(Tezos, contractPath) {
   );
   try {
     const codeJSONFile = fs.readFileSync(contractPath, "utf8");
-
     const estimationOp = await Tezos.estimate.originate({
       code: codeJSONFile,
       storage: new MichelsonMap(),
@@ -46,6 +45,16 @@ async function estimateOrigination(Tezos, contractPath) {
     console.log(`suggestedFeeMutez : ${suggestedFeeMutez}`);
     console.log(`totalCost : ${totalCost}`);
     console.log(`usingBaseFeeMutez : ${usingBaseFeeMutez}`);
+    
+    return {
+      burnFeeMutez: burnFeeMutez,
+      gasLimit: gasLimit,
+      minimalFeeMutez: minimalFeeMutez,
+      storageLimit: storageLimit,
+      suggestedFeeMutez: suggestedFeeMutez,
+      totalCost: totalCost,
+      usingBaseFeeMutez: usingBaseFeeMutez
+    };
   } catch (error) {
     console.error(`Error: ${error.message}`);
   }
@@ -88,7 +97,9 @@ async function estimateRecordDirectory(
   contractAddress,
   directoryPath,
   algorithm
-) {}
+) {
+  // TODO: maybe?
+}
 
 module.exports = {
   estimateOrigination,
