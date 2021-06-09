@@ -1,18 +1,17 @@
+# node
+node_modules
+package-lock.json
+yarn-error.log*
+
+# truffle
+build
+
+
 # IDE
 .vscode
 .idea
 
-# Dependency directories
-node_modules/
-
-# Compiled contracts
-build/
-
-# Logs
-experiments/
-logs/
-package-lock.json
-yarn-error.log*
-
-# dotenv environment variables file
+# dev
 .env
+faucet.json
+old

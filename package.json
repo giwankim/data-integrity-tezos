@@ -1,40 +1,23 @@
 {
+  "name": "tezos-example",
+  "version": "2.0.0",
+  "description": "Tezos Example Box =================",
   "dependencies": {
-    "@taquito/signer": "^9.0.0",
-    "@taquito/taquito": "^9.0.0",
-    "crypto": "^1.0.1",
-    "dotenv": "^9.0.0",
-    "fs": "*",
-    "yargs": "^17.0.1"
+    "@taquito/taquito": "^9.1.0",
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
     "ganache-cli": "^6.12.1-tezos.0"
   },
-  "name": "data-integrity-tezos",
-  "description": "Data integrity on Tezos",
-  "version": "1.0.0",
-  "main": "main.js",
   "scripts": {
-    "clean": "rm -rf build",
-    "compile": "yarn clean && mkdir build && ligo compile-contract contracts/Simple.religo main --output ./build/Simple.michelson",
-    "originate": "yarn compile && node ./src/main.js originate",
-    "estimate-origination": "yarn compile && node ./src/main.js estimate-origination",
-    "estimate-record": "yarn compile && node ./src/main.js estimate-record",
-    "record": "node ./src/main.js record",
-    "verify": "node ./src/main.js verify",
-    "help": "node ./src/main.js --help",
-    "start-sandbox": "ganache-cli --flavor tezos --seed alice --hardfork florence",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "postinstall": "mkdir -p logs"
+    "clean": "rm -rf ./build",
+    "compile": "yarn clean && truffle compile",
+    "migrate": "yarn clean && truffle migrate",
+    "migrate-florencenet": "yarn clean && truffle migrate --network florencenet",
+    "migrate-mainnet": "yarn clean && truffle migrate --network mainnet",
+    "start-sandbox": "ganache-cli --flavor tezos --seed alice",
+    "test": "yarn clean && yarn compile && truffle test",
+    "test:quick": "truffle test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/giwankim/data-integrity-tezos.git"
-  },
-  "author": "Giwan Kim",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/giwankim/data-integrity-tezos/issues"
-  },
-  "homepage": "https://github.com/giwankim/data-integrity-tezos#readme"
+  "license": "MIT"
 }
